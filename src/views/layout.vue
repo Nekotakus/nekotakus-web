@@ -1,10 +1,32 @@
 <template>
-  <div>
-    <n-menu mode="horizontal" :options="menuOptions"></n-menu>
-    <router-view class="view"></router-view>
-  </div>
+  <n-layout-header style="height: 64px; padding: 24px" bordered>
+  Nekotakus
+  </n-layout-header>
+  <n-space vertical>
+    <n-layout has-sider>
+      <n-layout-sider
+        bordered
+        collapse-mode="width"
+        :collapsed-width="64"
+        :width="240"
+        :collapsed="collapsed"
+        @collapse="collapsed = true"
+        @expand="collapsed = false"
+      >
+        <n-menu
+          v-model:value="activeKey"
+          :collapsed="collapsed"
+          :collapsed-width="64"
+          :collapsed-icon-size="22"
+          :options="menuOptions"
+        />
+      </n-layout-sider>
+      <n-layout>
+        <div><router-view class="view"></router-view></div>
+      </n-layout>
+    </n-layout>
+  </n-space>
 </template>
-
 <script setup>
 import { NMenu,NIcon, useMessage } from 'naive-ui';
 import { RouterLink } from 'vue-router'
@@ -19,7 +41,7 @@ function renderIcon(icon) {
 }
 
 const menuOptions = [
-  {
+{
     label: () => h(
       RouterLink,
       {
