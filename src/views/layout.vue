@@ -6,9 +6,17 @@
 </template>
 
 <script setup>
-import { NMenu } from 'naive-ui';
+import { NMenu,NIcon, useMessage } from 'naive-ui';
 import { RouterLink } from 'vue-router'
-import { h } from 'vue'
+import { h, ref, defineComponent } from 'vue'
+import {
+  PlayOutline as PlayIcon,
+  HomeOutline as HomeIcon
+} from "vicons/ionicons-v5";
+
+function renderIcon(icon) {
+  return () => h(NIcon, null, { default: () => h(icon) });
+}
 
 const menuOptions = [
   {
@@ -21,7 +29,8 @@ const menuOptions = [
         default: ()=>'首页'
       }
     ),
-    key: 'home'
+    key: 'home',
+    icon: renderIcon(HomeIcon)
   },
   {
     label: () => h(
@@ -33,7 +42,8 @@ const menuOptions = [
         default: ()=>'全部动画'
       }
     ),
-    key: 'anime'
+    key: 'anime',
+    icon: renderIcon(PlayIcon)
   }
 ]
 </script>
