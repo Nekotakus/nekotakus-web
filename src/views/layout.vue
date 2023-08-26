@@ -1,83 +1,56 @@
 <template>
-  <n-layout-header style="height: 64px; padding: 24px" bordered>
-  Nekotakus
-  </n-layout-header>
-  <n-space vertical>
-    <n-layout has-sider>
-      <n-layout-sider
-        bordered
-        collapse-mode="width"
-        :collapsed-width="64"
-        :width="240"
-        :collapsed="collapsed"
-        @collapse="collapsed = true"
-        @expand="collapsed = false"
-      >
-        <n-menu
-          v-model:value="activeKey"
-          :collapsed="collapsed"
-          :collapsed-width="64"
-          :collapsed-icon-size="22"
-          :options="menuOptions"
-        />
-      </n-layout-sider>
-      <n-layout>
-        <div><router-view class="view"></router-view></div>
-      </n-layout>
-    </n-layout>
-  </n-space>
+  <div class="overflow-hidden flx flex-col h-100vh h-80">
+    <va-navbar class="flex-none">
+      <template #left>
+        <va-navbar-item>
+          <router-link to="/">
+            Nekotakus
+          </router-link>
+        </va-navbar-item>
+      </template>
+      <template #right>
+        <va-input class="mr-8" label="Search">
+          <template #appendInner>
+            <va-icon name="search" />
+          </template>
+        </va-input>
+        <va-button class="mr-8" @click="handleLoginBoxDisplay">登录</va-button>
+        <va-button @click="handleRegisterBoxDisplay">注册</va-button>
+      </template>
+    </va-navbar>
+    <router-view class="h-1"></router-view>
+    <va-modal v-model="loginBoxDisplay" ok-text="登录">
+      <va-form class="flx flex-col">
+        <va-input label="username" placeholder="用户名"></va-input>
+        <va-input label="password" placeholder="密码"></va-input>
+      </va-form>
+    </va-modal>
+    <va-modal v-model="registerBoxDisplay" ok-text="注册">
+      <va-form class="flx flex-col">
+        <va-input label="username" placeholder="用户名"></va-input>
+        <va-input label="email" placeholder="邮箱"></va-input>
+        <va-input label="password" placeholder="密码"></va-input>
+        <va-input label="password" placeholder="重复密码"></va-input>
+      </va-form>
+    </va-modal>
+  </div>
 </template>
 <script setup>
-import { NMenu,NIcon, useMessage } from 'naive-ui';
-import { RouterLink } from 'vue-router'
-import { h, ref, defineComponent } from 'vue'
-import {
-  PlayOutline as PlayIcon,
-  HomeOutline as HomeIcon
-} from "vicons/ionicons-v5";
+import { ref } from 'vue'
 
-function renderIcon(icon) {
-  return () => h(NIcon, null, { default: () => h(icon) });
+let loginBoxDisplay = ref(false)
+let registerBoxDisplay = ref(false)
+
+let handleLoginBoxDisplay = () => {
+  loginBoxDisplay.value = !loginBoxDisplay.value
 }
-
-const menuOptions = [
-{
-    label: () => h(
-      RouterLink,
-      {
-        to: '/'
-      },
-      {
-        default: ()=>'首页'
-      }
-    ),
-    key: 'home',
-    icon: renderIcon(HomeIcon)
-  },
-  {
-    label: () => h(
-      RouterLink,
-      {
-        to: '/anime'
-      },
-      {
-        default: ()=>'全部动画'
-      }
-    ),
-    key: 'anime',
-    icon: renderIcon(PlayIcon)
-  }
-]
+let handleRegisterBoxDisplay = () => {
+  registerBoxDisplay.value = !registerBoxDisplay.value
+}
 </script>
 
 <style lang="less" scoped>
-.n-menu {
-  width: 100%;
-}
-
 .view {
-  height: 3000px;
   width: 100%;
-  // background: #6666;
 }
 </style>

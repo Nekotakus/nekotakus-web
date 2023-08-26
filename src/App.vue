@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="full-box">
     <n-config-provider :theme-overrides="themeOverrides">
       <router-view></router-view>
     </n-config-provider>
@@ -17,4 +17,8 @@ const themeOverrides = {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.full-box{
+  max-height: 100vh;
+}
+</style>

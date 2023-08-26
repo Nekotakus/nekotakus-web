@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <n-card v-for="item in SeriesListData" hoverable :title="item.name">
-      <n-space>
-        <router-link v-for="item2 in item.seasons" :to="'season/' + item2.asid">
-          <n-button strong secondary round type="primary">
-            {{ item2.title1 }}
-          </n-button>
-        </router-link>
-      </n-space>
-    </n-card>
+  <div class="card-list flx flex-wrap">
+    <va-card v-for="item in SeriesListData" class="overflow-hidden" :to="'/series/'+item.avid" outlined>
+      <va-image :src="item.seasons.slice(-1)[0].img_url"></va-image>
+      <div class="card-content">
+        <va-chip size="small">
+          系列
+        </va-chip>
+        {{ item.name }}
+      </div>
+    </va-card>
   </div>
 </template>
 
@@ -16,8 +16,6 @@
 import api from '@/api'
 import { reactive } from 'vue'
 import { NCard, NButton, NSpace } from 'naive-ui'
-// import { useRouter } from 'vue-router'
-// let {push} = useRouter()
 
 
 // 获取数据: 全部动画列表
@@ -28,4 +26,31 @@ api.getSeriesList().then(res => {
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.va-card {
+  width: 210px;
+  height: 380px;
+
+  .va-image {
+    height: 300px;
+  }
+
+  .card-content {
+    height: 70px;
+    vertical-align: middle;
+    padding: 6px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+.card-list {
+  padding: 20px 0;
+  justify-content: space-around;
+  row-gap: 20px;
+}
+</style>

@@ -7,11 +7,21 @@ const routes = [
     children: [
       {
         path: '/',
-        component: () => import('@/views/homepage.vue')
+        component: () => import('@/views/container.vue'),
+        children: [
+          {
+            path: '/',
+            component: () => import('@/views/homepage.vue')
+          },
+          {
+            path: '/anime',
+            component: () => import('@/views/anime.vue')
+          },
+        ]
       },
       {
-        path: '/anime',
-        component: () => import('@/views/anime.vue')
+        path: '/series/:avid',
+        component: () => import('@/views/series.vue')
       },
       {
         path: '/season/:asid',

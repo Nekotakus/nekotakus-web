@@ -3,7 +3,7 @@
     {{ episodeData.episode_name }}
     <!-- {{ episodeData.url }} -->
     <!-- <videoPlay v-bind="Option"></videoPlay> -->
-    <video :src="episodeData.url"></video>
+    <video :src="episodeData.url" controls></video>
   </div>
 </template>
 
@@ -12,8 +12,8 @@ import api from '@/api'
 import { useRoute } from 'vue-router'
 import { reactive } from 'vue'
 
-// import 'vue3-video-play/dist/style.css'
-// import { videoPlay } from 'vue3-video-play'
+import 'vue3-video-play/dist/style.css'
+import { videoPlay } from 'vue3-video-play'
 
 let aeid = useRoute().params.aeid
 
@@ -22,9 +22,13 @@ api.getEpisode(aeid).then(res => {
   Object.assign(episodeData, res.data)
 })
 
-// let Option = {
-//   src: episodeData.url
-// }
+let Option = {
+  src: episodeData.url
+}
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+video{
+  width: 50%;
+}
+</style>

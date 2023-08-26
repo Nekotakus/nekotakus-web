@@ -3,7 +3,23 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 
-// 导入路由
-import {router} from './router'
+// 导入vuestic
+import { createVuestic } from "vuestic-ui";
+import "vuestic-ui/css";
 
-createApp(App).use(router).mount('#app')
+//导入图标
+import "material-design-icons-iconfont/dist/material-design-icons.min.css";
+
+
+// 导入路由
+import { router } from './router'
+
+createApp(App).use(router).use(createVuestic({
+  config: {
+    colors: {
+      variables: {
+        primary: '#FFCCCC'
+      }
+    }
+  }
+})).mount('#app')
