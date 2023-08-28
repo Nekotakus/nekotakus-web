@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 // 一级封装
 const http = axios.create({
@@ -33,4 +34,37 @@ let getSeason = asid => get('/anime/season/' + asid)
 // 获取单集信息
 let getEpisode = aeid => get('/anime/episode/' + aeid)
 
-export default { http, getSeriesList, getSeries, getSeason, getEpisode }
+//注册
+let register = (username, password, email) => post('/user/register', {
+  data: {
+    username,
+    password,
+    email
+  },
+  transformRequest: [
+    function (data) {
+      return qs.stringify(data)
+    }
+  ],
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+})
+
+// 登录
+let login = (username, password) => post('/login', {
+  data: {
+    username,
+    password
+  },
+  transformRequest: [
+    function (data) {
+      return qs.stringify(data)
+    }
+  ],
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+})
+
+export default { http, getSeriesList, getSeries, getSeason, getEpisode, register }
