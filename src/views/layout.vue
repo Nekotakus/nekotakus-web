@@ -2,9 +2,9 @@
   <div class="overflow-hidden flx flex-col h-100vh h-80">
     <va-navbar class="flex-none">
       <template #left>
-        <va-navbar-item>
+        <va-navbar-item clas="logo">
           <router-link to="/">
-            Nekotakus
+            <img width=50 src="/img/logo/nekotakus_icon_512.png"/>
           </router-link>
           <va-chip color="warning" size="small">Alpha 1.0 Canary</va-chip>
         </va-navbar-item>
