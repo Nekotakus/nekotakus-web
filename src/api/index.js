@@ -67,4 +67,4 @@ let login = (username, password) => post('/login', {
   }
 })
 
-export default { http, getSeriesList, getSeries, getSeason, getEpisode, register }
+export default { http, getSeriesList, getSeries, getSeason, getEpisode, register, login }
