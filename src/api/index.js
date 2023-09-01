@@ -52,7 +52,7 @@ let register = (username, password, email) => post('/user/register', {
 })
 
 // 登录
-let login = (username, password) => post('/login', {
+let login = (username, password) => post('/user/login', {
   data: {
     username,
     password
