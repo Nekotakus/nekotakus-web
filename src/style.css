@@ -28,3 +28,6 @@ a{
   scrollbar-width: none; /* firefox */
   -ms-overflow-style: none; /* IE 10+ */
 }
+.w-1200{
+  width: 1200px;
+}
