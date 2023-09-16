@@ -4,8 +4,8 @@
       <va-card-title>{{ props.episode.episode_name }}</va-card-title>
     </va-card>
     <va-card class="p-2">
-      <!-- <video :src="props.episode.url" class="w-full" controls autoplay></video> -->
-      <video :src="'//upload.wikimedia.org/wikipedia/en/transcoded/a/ad/American_Beauty_gymnasium.ogv/American_Beauty_gymnasium.ogv.240p.webm'" class="w-full" controls></video>
+      <video :src="props.episode.url" class="w-full" controls autoplay></video>
+      <!-- <video :src="'//upload.wikimedia.org/wikipedia/en/transcoded/a/ad/American_Beauty_gymnasium.ogv/American_Beauty_gymnasium.ogv.240p.webm'" class="w-full" controls></video> -->
     </va-card>
   </div>
 </template>
