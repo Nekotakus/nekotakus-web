@@ -1,35 +1,18 @@
 <template>
   <div class="overflow-hidden flx flex-col h-100vh h-80">
-    <q-layout view="hHh Lpr fFf">
-      <!-- Header -->
-      <q-header>
-        <q-toolbar>
-          <q-btn flat round dense icon="menu" class="mr-2" />
-          <q-avatar>
-            <img src="/img/logo/nekotakus_icon_512.png" />
-          </q-avatar>
-          <q-toolbar-title class="gt-md">
-            <span class="mr-2">Nekotakus</span>
-            <q-badge color="yellow-8">Alpha 1.0 Canary</q-badge>
-          </q-toolbar-title>
-          <q-input dark dense standout input-class="text-right" class="mr-4 ml-4">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-          <!-- 未登录显示 -->
-          <template v-if="isLogin">
-            <q-btn flat round dense icon="login" class="mr-4" @click="handleLoginBoxDisplay" />
-            <q-btn flat round dense icon="person_add" class="" @click="handleRegisterBoxDisplay" />
-          </template>
-          <!-- 登录显示 -->
-          <q-btn v-else flat round dense icon="logout" class="" @click="handelLogout" />
-        </q-toolbar>
-      </q-header>
-      <router-view class="h-1"></router-view>
-    </q-layout>
     <!-- 顶部导航栏 -->
-    <!-- <va-navbar class="flex-none">
+    <va-navbar class="flex-none">
+      <!-- 导航栏左侧 -->
+      <template #left>
+        <va-navbar-item class="flx items-center">
+          <router-link to="/" class="flx items-center mr-6">
+            <img width=50 src="/img/logo/nekotakus_icon_512.png" />
+            <span>Nekotakus</span>
+          </router-link>
+          <q-badge color="primary">Alpha 1.0 Canary</q-badge>
+        </va-navbar-item>
+      </template>
+      <!-- 导航栏右侧 -->
       <template #right>
         <va-input class="mr-8">
           <template #appendInner>
@@ -42,9 +25,9 @@
         </template>
         <va-button v-else @click="handelLogout">退出登录</va-button>
       </template>
-    </va-navbar> -->
+    </va-navbar>
     <!-- 路由内容显示 -->
-    <!-- <router-view class="h-1"></router-view> -->
+    <router-view class="h-1"></router-view>
     <!-- 登录模态框 -->
     <va-modal v-model="loginBoxDisplay" close-button hide-default-actions blur>
       <va-form class="flx flex-col mt-8 gap-2" ref="loginRef">
@@ -94,7 +77,7 @@
 </template>
 <script setup>
 import { ref, reactive, computed } from 'vue'
-import { useForm, useToast } from 'vuestic-ui';
+import { useForm,useToast } from 'vuestic-ui';
 import api from '@/api'
 import { isLogin } from '@/scripts/globalFunctions.js'
 
@@ -126,22 +109,22 @@ let handleRegister = () => {
   if (registerValid()) {
     submitLoading.value = true
     api.register(registerForm.username, registerForm.password, registerForm.email).then(res => {
-      if (res.status == 200) {
+      if(res.status == 200){
         useToast().init('注册成功!转到登录界面!')
         handleLoginBoxDisplay()
         handleRegisterBoxDisplay()
       }
-    }).catch(res => {
-      if (res.response.status == 400) {
+    }).catch(res=>{
+      if(res.response.status == 400){
         useToast().init('注册失败! 数据不合法!')
-      } else if (res.response.status == 422) {
+      }else if(res.response.status == 422){
         useToast().init('注册失败! 账号已存在!')
-      } else if (res.response.status == 500) {
+      }else if(res.response.status == 500){
         useToast().init('注册失败! 服务器异常!')
-      } else {
+      }else{
         useToast().init('注册失败! ')
       }
-    }).finally(() => {
+    }).finally(()=>{
       submitLoading.value = false
     })
   }
@@ -152,34 +135,34 @@ const loginValid = useForm('loginRef').validate
 let handleLogin = () => {
   if (loginValid()) {
     submitLoading.value = true
-    api.login(loginForm.username, loginForm.password).then(res => {
-      if (res.status == 200) {
+    api.login(loginForm.username, loginForm.password).then(res=>{
+      if(res.status == 200){
         localStorage.setItem('token', res.data.token)
         useToast().init('登录成功! 即将刷新页面!')
         handleLoginBoxDisplay()
         location.reload()
       }
-    }).catch(res => {
+    }).catch(res=>{
       console.log(res);
-      if (res.response.status == 400) {
+      if(res.response.status == 400){
         useToast().init('登录失败! 数据不合法!')
-      } else if (res.response.status == 401) {
+      }else if(res.response.status == 401){
         useToast().init('登录失败! 用户名或者密码错误! ')
-      } else if (res.response.status == 403) {
+      }else if(res.response.status == 403){
         useToast().init('登录失败! 验证未通过! ')
-      } else if (res.response.status == 500) {
+      }else if(res.response.status == 500){
         useToast().init('登录失败! 服务器异常! ')
-      } else {
+      }else{
         useToast().init('登录失败! ')
       }
-    }).finally(() => {
+    }).finally(()=>{
       submitLoading.value = false
     })
   }
 }
 
 //登出方法
-const handelLogout = () => {
+const handelLogout = ()=> {
   localStorage.removeItem('token')
   useToast().init('退出登录! 即将刷新页面!')
   location.reload()
@@ -193,5 +176,4 @@ const handelLogout = () => {
 
 .va-form {
   width: 300px;
-}
-</style>
+}</style>
