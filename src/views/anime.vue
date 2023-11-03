@@ -1,6 +1,6 @@
 <template>
   <div class="card-list flx flex-wrap">
-    <va-card v-for="item in SeriesListData" class="overflow-hidden" :to="'/series/'+item.avid" outlined>
+    <!-- <va-card v-for="item in SeriesListData" class="overflow-hidden" :to="'/series/' + item.avid" outlined>
       <va-image :src="item.seasons.slice(-1)[0].img_url"></va-image>
       <div class="card-content">
         <va-chip size="small">
@@ -8,7 +8,14 @@
         </va-chip>
         {{ item.name }}
       </div>
-    </va-card>
+    </va-card> -->
+    <q-card v-for="item in SeriesListData">
+      <img :src="item.seasons.slice(-1)[0].img_url" alt="cover">
+      <q-card-section>
+        <p class="title text-weight-bolder text-base h-12 m-0">{{ item.name }}</p>
+        <p class="text-body2 text-grey">系列</p>
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
@@ -27,6 +34,24 @@ api.getSeriesList().then(res => {
 </script>
 
 <style lang="less" scoped>
+.q-card {
+  width: 210px;
+  height: 392px;
+
+  img {
+    height: 300px;
+  }
+
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+  }
+}
+
 .va-card {
   width: 210px;
   height: 380px;
@@ -52,5 +77,4 @@ api.getSeriesList().then(res => {
   padding: 20px 0;
   justify-content: space-around;
   row-gap: 20px;
-}
-</style>
+}</style>

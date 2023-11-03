@@ -5,19 +5,27 @@ const routes = [
     path: '/', 
     component: () => import('@/views/layout.vue'),
     children: [
+      // {
+      //   path: '/',
+      //   component: () => import('@/views/container.vue'),
+      //   children: [
+      //     {
+      //       path: '/',
+      //       component: () => import('@/views/homepage.vue')
+      //     },
+      //     {
+      //       path: '/anime',
+      //       component: () => import('@/views/anime.vue')
+      //     },
+      //   ]
+      // },
       {
         path: '/',
-        component: () => import('@/views/container.vue'),
-        children: [
-          {
-            path: '/',
-            component: () => import('@/views/homepage.vue')
-          },
-          {
-            path: '/anime',
-            component: () => import('@/views/anime.vue')
-          },
-        ]
+        component: () => import('@/views/homepage.vue')
+      },
+      {
+        path: '/anime',
+        component: () => import('@/views/anime.vue')
       },
       {
         path: '/series/:avid',

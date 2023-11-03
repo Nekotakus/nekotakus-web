@@ -1,18 +1,4 @@
 <template>
-  <!-- <va-sidebar>
-    <va-sidebar-item to="/" :active="pathMatched('/')">
-      <va-sidebar-item-content>
-        <va-icon name="home" />
-        <va-sidebar-item-title>首页</va-sidebar-item-title>
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item to="/anime" :active="pathMatched('/anime')">
-      <va-sidebar-item-content>
-        <va-icon name="play_arrow" />
-        <va-sidebar-item-title>全部动画</va-sidebar-item-title>
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-  </va-sidebar> -->
   <q-drawer v-model="drawer" width="150" bordered>
     <q-list>
       <q-item to="/">

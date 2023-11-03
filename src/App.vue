@@ -9,6 +9,10 @@
 <script setup>
 import { NConfigProvider } from 'naive-ui'
 
+import { setCssVar } from 'quasar'
+
+setCssVar('primary', '#F99')
+
 const themeOverrides = {
   common: {
       primaryColor: '#FF9999',

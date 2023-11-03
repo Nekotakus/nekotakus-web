@@ -1,16 +1,16 @@
 <template>
   <div class="overflow-hidden flx flex-col h-100vh h-80">
-    <q-layout view="hHh Lpr fFf">
+    <q-layout view="hHh Lpr fFf"  class="overflow-scroll">
       <!-- Header -->
       <q-header>
         <q-toolbar>
-          <q-btn flat round dense icon="menu" class="mr-2" />
+          <q-btn flat round dense icon="menu" class="mr-2" @click="handleDrawer(drawer)" />
           <q-avatar>
             <img src="/img/logo/nekotakus_icon_512.png" />
           </q-avatar>
           <q-toolbar-title class="gt-md">
             <span class="mr-2">Nekotakus</span>
-            <q-badge color="yellow-8">Alpha 1.0 Canary</q-badge>
+            <q-badge color="white" text-color="primary">Alpha 2.0 Canary</q-badge>
           </q-toolbar-title>
           <q-input dark dense standout input-class="text-right" class="mr-4 ml-4">
             <template v-slot:append>
@@ -26,7 +26,26 @@
           <q-btn v-else flat round dense icon="logout" class="" @click="handelLogout" />
         </q-toolbar>
       </q-header>
-      <router-view class="h-1"></router-view>
+      <!-- 侧边栏 -->
+      <q-drawer v-model="drawer" :width="150" :breakpoint="600" show-if-above bordered>
+        <q-list>
+          <q-item to="/">
+            <q-item-section avatar>
+              <q-icon name="home"></q-icon>
+            </q-item-section>
+            <q-item-section>首页</q-item-section>
+          </q-item>
+          <q-item to="/anime">
+            <q-item-section avatar>
+              <q-icon name="play_arrow"></q-icon>
+            </q-item-section>
+            <q-item-section>动画</q-item-section>
+          </q-item>
+        </q-list>
+      </q-drawer>
+      <q-page-container>
+            <router-view></router-view>
+      </q-page-container>
     </q-layout>
     <!-- 顶部导航栏 -->
     <!-- <va-navbar class="flex-none">
@@ -97,6 +116,14 @@ import { ref, reactive, computed } from 'vue'
 import { useForm, useToast } from 'vuestic-ui';
 import api from '@/api'
 import { isLogin } from '@/scripts/globalFunctions.js'
+import { QScrollArea } from 'quasar';
+
+// 侧边栏状态
+const handleDrawer = (value)=>{
+  drawer.value = !value
+}
+let drawer = ref(false)
+
 
 // 登录/注册模态框
 let loginBoxDisplay = ref(false)
